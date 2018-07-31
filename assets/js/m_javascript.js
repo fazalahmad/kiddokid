@@ -1,6 +1,21 @@
 $('#cart-dropdown').on('click', function(){
-  $(this).toggleClass('open')
+  $(this).toggleClass('open');
 })
+
+$('#togleuser').bind('click',function(){
+  $('.overlay-user').toggle();
+})
+
+$(document).click(function(e){
+  if (e.target.matches('.header-cart')) {
+    if (!e.target.matches('.user-profile')) {
+       $('.overlay-user').hide();
+    }
+  }
+})
+
+
+
 
 
 

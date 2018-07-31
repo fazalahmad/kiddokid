@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Kiddo Kid</title>
-    <link rel=”icon” href=”/kiddokid/assets/img/icon.png”>
+    <link rel=”icon” href=”/assets/img/icon.png”>
 
     <!-- Bootstrap -->
-    <link href="/kiddokid/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/kiddokid/assets/css/m_style.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/m_style.css" rel="stylesheet">
 
   </head>
   <body>
@@ -25,7 +25,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="index.html">
-        <img alt="Brand" class="img-circle" src="/kiddokid/assets/img/icon.png" style="width: 30px; height: 25px;"> </a>
+        <img alt="Brand" class="img-circle" src="/assets/img/icon.png" style="width: 30px; height: 25px;"> </a>
       <a href="#" class="navbar-brand">Kiddo Kid</a>
 
     </div>
@@ -42,8 +42,8 @@
       </ul>
 
       <ul class="nav navbar-nav f-right">
-        <li> <a href="/kiddokid/views\user\login.php">Login</a> </li>
-        <li> <a href="/kiddokid/views\user\daftar.php">Daftar</a> </li>
+        <li> <a href="/views\user\login.php">Login</a> </li>
+        <li> <a href="/views\user\daftar.php">Daftar</a> </li>
         <li id="togleuser"><img src="https://smkn1pts.files.wordpress.com/2009/11/pas-photo-baru.jpg" alt="" class="user-profile cart-pointer">
         </li>
 
@@ -63,7 +63,7 @@
       </div>
 
       <ul class="nav navbar-nav f-right">
-        <li class="cart" id="cart-dropdown"> <a class="cart-pointer" > <img src="/kiddokid/assets\img\shopping-cart.png" alt="" width="25" > </a>
+        <li class="cart" id="cart-dropdown"> <a class="cart-pointer" > <img src="/assets\img\shopping-cart.png" alt="" width="25" > </a>
             <span class="sum-barang">12</span>
           <div class="overlay card-area">
             <div class="header-cart">
@@ -106,3 +106,16 @@
 
   </div><!-- /.container-fluid -->
 </nav>
+
+<!--body strat  -->
+<form class="" action="index.html" method="post">
+  <label for="">Nama Barang</label>
+</form>
+<!--body end  -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/m_javascript.js"></script>
+</body>
+</html>
