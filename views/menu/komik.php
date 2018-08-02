@@ -1,11 +1,14 @@
 <?php
-    include('../../controllers/pelapak/class_jual_majalah.php');
-    $dbConn_majalah = new Controllers_Majalah();
-    session_start();
-    if (!isset($_SESSION['Email'])) {
-      header("location: ../../index.php");
-    }
+
+  ob_start();
+  session_start();
+  include('../../controllers/pelapak/class_jual_majalah.php');
+  $dbConn_majalah = new Controllers_Majalah();
+
+  include('../../controllers/pelapak/class_jual_komik.php');
+  $dbConn_komik = new Controllers_Komik();
  ?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -17,11 +20,11 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+
     <link rel=”icon” href=”../../assets/img/icon.png”>
 
     <!-- Bootstrap -->
-    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="../../assets/css/m_style.css" rel="stylesheet">
 
   </head>
@@ -45,20 +48,18 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
       <ul class="nav navbar-nav">
-        <li> <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true" style="padding:0px;"></span>Home</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-book" aria-hidden="true" style="padding:0px;"></span>Majalah</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-camera" aria-hidden="true" style="padding:0px;"></span>Video</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-paperclip" aria-hidden="true" style="padding:0px;"></span>Komik</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="padding:0px;"></span>Event</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="padding:0px;"></span>Tentang</a> </li>
+        <li> <a href="../../index.php"><span class="glyphicon glyphicon-home" aria-hidden="true" style="padding:0px;"></span>Home</a> </li>
+        <li> <a href="majalah.php"><span class="glyphicon glyphicon-book" aria-hidden="true" style="padding:0px;"></span>Majalah</a> </li>
+        <li> <a href="video.php"><span class="glyphicon glyphicon-camera" aria-hidden="true" style="padding:0px;"></span>Video</a> </li>
+        <li> <a href="komik.php"><span class="glyphicon glyphicon-paperclip" aria-hidden="true" style="padding:0px;"></span>Komik</a> </li>
       </ul>
 
       <?php
         if (empty($_SESSION['Level'])) {
           ?>
           <ul class="nav navbar-nav f-right">
-            <li> <a href="views/user/login.php">Login</a> </li>
-            <li> <a href="views/user/daftar.php">Daftar</a> </li>
+            <li> <a href="../user/login.php">Login</a> </li>
+            <li> <a href="../user/daftar.php">Daftar</a> </li>
           </ul>
 
           <ul class="nav navbar-nav f-right">
@@ -119,8 +120,8 @@
               <div class="content-cart">
                 <ul style="list-style: none; padding-left:16px;">
                   <li class="text-pad"><a href="#" class="text-link">Halaman Profile</a></li>
-                  <li class="text-pad"><a href="#" class="text-link">Lapak Saya</a></li>
-                  <li class="text-pad"><a href="../../views/user/logout.php" class="text-link">Logout</a></li>
+                  <li class="text-pad"><a href="../penjual/jual_majalah.php" class="text-link">Lapak Saya</a></li>
+                  <li class="text-pad"><a href="../user/logout.php" class="text-link">Logout</a></li>
                 </ul>
               </div>
             </div>
@@ -170,6 +171,10 @@
         }
       ?>
 
+      <?php
+
+       ?>
+
     </div><!-- /.navbar-collapse -->
 
   </div><!-- /.container-fluid -->
@@ -177,124 +182,59 @@
 
 <!--body-start-->
 
-<div class="container-fluid">
-  <div class="panel panel-default">
-    <div class="panel-heading"><h2>Update Barang</h2></div>
-    <div class="panel-body">
+<?php
+$tampil = $dbConn_komik->tampil_komik();
 
-      <form  action="" method="post" enctype="multipart/form-data" >
-        <div class="row">
-          <?php
-              $tampil = $dbConn_majalah->edit_majalah2();
-              // var_dump($tampil);die();
+if ($tampil != null) {
+  ?>
+    <div class="container-fluid">
+      <br><br>
+      <h2>Komik</h2>
+      <hr>
+      <div class="row" align="center">
+        <?php
 
+            if (isset($tampil)) {
               foreach ($tampil as $tampil) {
                 ?>
-                <div class="col-xs-12 col-md-4">
-                  <div class="panel panel-default">
-                    <div class="panel-heading"><h3>Gambar Barang</h3></div>
-                    <div class="panel-body">
-                      <input type="file" id="file" name="foto_barang" value="<?php echo $tampil['Foto_Majalah']; ?>" />
-
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-xs-6 col-md-7 col-md-offset-1">
-                  <div class="panel panel-default">
-                    <div class="panel-heading"><h3>Data Barang</h3></div>
-                    <div class="panel-body">
-
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Kategori Barang</label>
-                        <select name="kategori" class="form-control">
-                          <option value="pilih_kategori">Pilih Kategori</option>
-                          <option value="video">Video</option>
-                          <option value="komik">Komik</option>
-                          <option value="majalah" selected>Majalah</option>
-                        </select>
+                <div class="col-6 col-md-4">
+                  <a href="#">
+                    <div class="k-card t-cart">
+                    <img style="background-image:url('../../public/gambar_barang/<?php echo $tampil['Foto_Komik']; ?>');" class="img-card">
+                    <!-- <img src="http://sales-jasatama.890m.com/wp-content/uploads/2016/09/10584-majalah-bobo-edisi-terbaru-15-terbit-21-juli-2016.jpg" alt="" class="img-card"> -->
+                      <div class="k-card-body">
+                        <h4> <?php echo $tampil['Nama_Komik']; ?></h4>
                       </div>
-
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Nama Barang</label>
-                        <input type="text" name="nama_barang" class="form-control" id="exampleInputEmail1" placeholder="Nama Barang" value="<?php echo $tampil['Nama_Majalah']; ?>">
+                      <div class="k-card-footer">
+                        <small> <?php echo $tampil['NamaLengkap']; ?></small>
+                        <strong class="f-right">IDR <?php echo $tampil['Harga']; ?></strong>
                       </div>
-
-
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Edisi</label>
-                        <input type="number" min="1" name="edisi" class="form-control" placeholder="Edisi Majalah" style="width:150px;" value="<?php echo $tampil['Edisi_Majalah']; ?>">
-                      </div>
-
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Harga</label>
-                        <div class="input-group" style="width:300px;">
-                          <span class="input-group-addon">Rp</span>
-                          <input type="text" name="harga" class="form-control" aria-label="Amount (to the nearest dollar)" value="<?php echo $tampil['Harga']; ?>">
-                          <span class="input-group-addon">.00</span>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Deskripsi</label>
-                        <textarea name="deskripsi" class="form-control" rows="10"><?php echo $tampil['Deskripsi_Majalah']; ?></textarea>
-                      </div>
-
-
-                      <!-- <div class="form-group">
-                        <label for="exampleInputEmail1">Email Pengiriman</label>
-                        <input type="text" name="email" class="form-control" placeholder="Email Pengiriman">
-                      </div> -->
-
-                      <div class="form-group">
-                        <button type="submit" name="update_majalah"class="btn btn-primary" style="width:150px; float:right;">Edit Barang</button>
+                      <div class="k-cart-add">
+                        <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
                 <?php
               }
-           ?>
+            }
+         ?>
 
-        </div>
-      </form>
-
+      </div>
+        <!-- <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center> -->
     </div>
-    </div>
+  <?php
+}
+ ?>
 
-</div>
+
 <!--body-end-->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../../assets/js/bootstrap.min.js"></script>
+<!-- <script src="assets/js/bootstrap.min.js"></script> -->
 <script src="../../assets/js/m_javascript.js"></script>
-<script type="text/javascript">
-    $('#myTabs a').click(function (e) {
-    e.preventDefault()
-    $(this).tab('show')
-    })
-
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
-</script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
-
-<?php
-  if(isset($_POST['update_majalah'])){
-      $data_update = null;
-      $data_update[0] = $tampil['id_majalah'];
-      $data_update[1] = $_POST['nama_barang'];
-      $data_update[2] = $_POST['kategori'];
-      $data_update[3] = $_POST['harga'];
-      $data_update[4] = $_POST['deskripsi'];
-      $data_update[5] = $_POST['foto_barang'];
-      $data_update[6] = $_POST['edisi'];
-      var_dump($data_update); die();
-      $dbConn_majalah->delete_majalah($data_update);
-      header('location: jual_majalah.php');
-  }
- ?>

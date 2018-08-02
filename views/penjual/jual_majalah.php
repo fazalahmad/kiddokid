@@ -1,6 +1,9 @@
 <?php
     include('../../controllers/pelapak/class_jual_majalah.php');
     $dbConn_majalah = new Controllers_Majalah();
+
+    include('../../controllers/pelapak/class_jual_komik.php');
+    $dbConn_komik = new Controllers_Komik();
     session_start();
     if (!isset($_SESSION['Email'])) {
       header("location: ../../index.php");
@@ -45,12 +48,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
       <ul class="nav navbar-nav">
-        <li> <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true" style="padding:0px;"></span>Home</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-book" aria-hidden="true" style="padding:0px;"></span>Majalah</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-camera" aria-hidden="true" style="padding:0px;"></span>Video</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-paperclip" aria-hidden="true" style="padding:0px;"></span>Komik</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="padding:0px;"></span>Event</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="padding:0px;"></span>Tentang</a> </li>
+        <li> <a href="../../index.php"><span class="glyphicon glyphicon-home" aria-hidden="true" style="padding:0px;"></span>Home</a> </li>
+        <li> <a href="../menu/majalah.php"><span class="glyphicon glyphicon-book" aria-hidden="true" style="padding:0px;"></span>Majalah</a> </li>
+        <li> <a href="../menu/video.php"><span class="glyphicon glyphicon-camera" aria-hidden="true" style="padding:0px;"></span>Video</a> </li>
+        <li> <a href="../menu/komik.php"><span class="glyphicon glyphicon-paperclip" aria-hidden="true" style="padding:0px;"></span>Komik</a> </li>
       </ul>
 
       <?php
@@ -214,7 +215,7 @@
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">Kategori Barang</label>
-                        <select name="kategori" class="form-control">
+                        <select id="kategori" name="kategori" class="form-control">
                           <option value="pilih_kategori">Pilih Kategori</option>
                           <option value="video">Video</option>
                           <option value="komik">Komik</option>
@@ -227,10 +228,15 @@
                         <input type="text" name="nama_barang" class="form-control" id="exampleInputEmail1" placeholder="Nama Barang">
                       </div>
 
+                          <div class="form-group" id="k-majalah">
+                            <label for="exampleInputEmail1">Edisi</label>
+                            <input type="number" min="1" name="edisi" class="form-control" placeholder="Edisi Majalah" style="width:150px;">
+                          </div>
 
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Edisi</label>
-                        <input type="number" min="1" name="edisi" class="form-control" placeholder="Edisi Majalah" style="width:150px;">
+
+                      <div class="form-group" id="k-komik">
+                        <label for="exampleInputEmail1">Volume</label>
+                        <input type="number" min="1" name="volume" class="form-control" placeholder="Volume" style="width:150px;">
                       </div>
 
                       <div class="form-group">
@@ -247,12 +253,6 @@
                         <textarea name="deskripsi" class="form-control" rows="10"></textarea>
                       </div>
 
-
-                      <!-- <div class="form-group">
-                        <label for="exampleInputEmail1">Email Pengiriman</label>
-                        <input type="text" name="email" class="form-control" placeholder="Email Pengiriman">
-                      </div> -->
-
                       <div class="form-group">
                         <button type="submit" class="btn btn-primary" name="jual_barang" style="width:150px; float:right;">Jual</button>
                       </div>
@@ -268,6 +268,8 @@
       </div>
     </div>
     <!--end isi_jual barang -->
+
+    <!--start majalah  -->
     <div role="tabpanel" class="tab-pane" id="profile">
       <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -279,7 +281,7 @@
                 <th>Deskripsi</th>
                 <th>Foto</th>
                 <th>Email</th>
-                <th>Action</th>
+                <th style="width:150px;">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -293,13 +295,13 @@
 
                       <td> <?php echo $i=$i+1; ?></td>
                       <td> <?php echo $tampil['Kategori']; ?></td>
-                      <td><?php echo $tampil['NamaLengkap']; ?></td>
+                      <td><?php echo $tampil['Nama_Majalah']; ?></td>
                       <td> <?php echo $tampil['Edisi_Majalah']; ?></td>
                       <td> <?php echo $tampil['Deskripsi_Majalah']; ?></td>
                       <td> <img src="../../public/gambar_barang/<?php echo $tampil['Foto_Majalah']; ?>" alt="" width="50"> </td>
                       <td> <?php echo $tampil['Email']; ?></td>
-                      <td> <button type="button" class="btn btn-success"><a href="jual_majalah.php?id_majalah=<?php echo $tampil['id_majalah']; ?>&aksi=edit">Edit</a></button>
-                          <button type="button" class="btn btn-danger"><a href="edit_majalah.php?id_majalah=<?php echo $tampil['id_majalah']; ?>&aksi=delete">Hapus</a></button>
+                      <td> <button type="button" class="btn btn-success"><a href="jual_majalah.php?id_majalah=<?php echo $tampil['id_majalah']; ?>&aksi=edit_majalah">Edit</a></button>
+                          <button type="button" class="btn btn-danger"><a href="jual_majalah.php?id_majalah=<?php echo $tampil['id_majalah']; ?>&aksi=delete_majalah">Hapus</a></button>
                       </td>
                   </tr>
                   <?php
@@ -309,20 +311,60 @@
            ?>
 
         </tbody>
-        <tfoot>
-            <tr>
-                <!-- <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th> -->
-            </tr>
-        </tfoot>
     </table>
     </div>
-    <div role="tabpanel" class="tab-pane" id="messages">...</div>
-    <div role="tabpanel" class="tab-pane" id="settings">...</div>
+    <!--end majalah  -->
+
+    <!--start komik  -->
+    <div role="tabpanel" class="tab-pane" id="messages">
+      <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Kategori</th>
+                <th>Nama barang</th>
+                <th>Volume</th>
+                <th>Deskripsi</th>
+                <th>Foto</th>
+                <th>Email</th>
+                <th style="width:150px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+          <?php
+              $tampil = $dbConn_komik->tampil_pelapak();
+              $nomor = array_sum($tampil);
+              for ($i=0; $i <= $nomor ; $i++) {
+                foreach ($tampil as $tampil) {
+                  ?>
+                  <tr>
+
+                      <td> <?php echo $i=$i+1; ?></td>
+                      <td> <?php echo $tampil['Kategori']; ?></td>
+                      <td><?php echo $tampil['Nama_Komik']; ?></td>
+                      <td> <?php echo $tampil['Volume_Komik']; ?></td>
+                      <td> <?php echo $tampil['Deskripsi_Komik']; ?></td>
+                      <td> <img src="../../public/gambar_barang/<?php echo $tampil['Foto_Komik']; ?>" alt="" width="50"> </td>
+                      <td> <?php echo $tampil['Email']; ?></td>
+                      <td> <button type="button" class="btn btn-success"><a href="jual_majalah.php?id_komik=<?php echo $tampil['id_komik']; ?>&aksi=edit_komik">Edit</a></button>
+                          <button type="button" class="btn btn-danger"><a href="jual_majalah.php?id_komik=<?php echo $tampil['id_komik']; ?>&aksi=delete_komik">Hapus</a></button>
+                      </td>
+                  </tr>
+                  <?php
+                }
+              }
+
+           ?>
+
+        </tbody>
+    </table>
+    </div>
+    <!--end komik  -->
+
+    <!--start video  -->
+    <div role="tabpanel" class="tab-pane" id="settings">
+    </div>
+    <!--end komik  -->
   </div>
 
 </div>
@@ -348,12 +390,16 @@
 
 <?php
   if (isset($_POST['jual_barang'])) {
+    if ($_POST['kategori']=='majalah') {
+      $ed_vol = $_POST['edisi'];
+    }else if ($_POST['kategori']=='komik') {
+      $ed_vol = $_POST['volume'];
+    }
       $filename = $_FILES['foto_barang']['name'];
       $nama_barang = $_POST['nama_barang'];
       $kategori = $_POST['kategori'];
       $harga = $_POST['harga'];
       $deskripsi = $_POST['deskripsi'];
-      $edisi = $_POST['edisi'];
 
       $data_barang = null;
       $data_barang[0]=$nama_barang;
@@ -361,24 +407,30 @@
       $data_barang[2]=$harga;
       $data_barang[3]=$deskripsi;
       $data_barang[4]=$filename;
-      $data_barang[5]=$edisi;
+      $data_barang[5]=$ed_vol;
       if ($kategori == 'majalah') {
-        // echo "suskses"; die();
         $dbConn_majalah->tambah_majalah($data_barang);
+      }else if ($kategori == 'komik') {
+        $dbConn_komik->tambah_komik($data_barang);
       }
   }
 
   if(isset($_GET['aksi'])){
-      if($_GET['aksi'] == 'delete'){
+      if($_GET['aksi'] == 'delete_majalah'){
       $dbConn_majalah->delete_majalah($_GET['id_majalah']);
       header('location: jual_majalah.php');
-      }
+    }else if ($_GET['aksi'] == 'delete_komik') {
+      $dbConn_komik->delete_majalah($_GET['id_komik']);
+      header('location: jual_majalah.php');
+    }
   }
 
   if(isset($_GET['aksi'])){
-      if($_GET['aksi'] == 'edit'){
+      if($_GET['aksi'] == 'edit_majalah'){
       $dbConn_majalah->edit_majalah($_GET['id_majalah']);
       header('location: edit_majalah.php');
-      }
+    }else if($_GET['aksi'] == 'edit_komik'){
+
+    }
   }
  ?>

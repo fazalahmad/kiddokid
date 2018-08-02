@@ -14,6 +14,8 @@ class Controllers_Majalah
   private $table_user = 'user';
   private $kolom = array('Nama_Majalah','Kategori','Harga','Deskripsi_Majalah', 'Foto_Majalah', 'Edisi_Majalah');
   private $conn;
+  public $edit_majalah;
+
 
   public function __construct()
   {
@@ -103,23 +105,28 @@ class Controllers_Majalah
 
   public function edit_majalah($id)
   {
-    $sql = "SELECT * FROM majalah where id_majalah = '$id'";
+    $sql = "SELECT * FROM majalah where id_majalah = '$id' ";
 
       try{
           $query = $this->conn->query($sql);
-          $hasil = $query->fetchAll();
 
-          foreach ($hasil as $hasil) {
-            $tampil[] = $hasil;
-          }
+          $hasil = $query->fetch();
 
-
+          $tampil = array($hasil[0],$hasil[1],$hasil[2],$hasil[3],$hasil[4],$hasil[5],$hasil[6],$hasil[7]);
+          $this->edit_majalah = $tampil;
+          return $tampil;
       } catch (PDOException $ex) {
           print "<b>Kesalahan :</b> ".$ex->getMessage().' <b>di</b> '
           .$ex->getFile().' <b>pada baris ke-</b>'.$ex->getLine().'<br>';
       }
 
-      return $tampil;
+  }
+
+  public function edit_majalah2()
+  {
+    echo"berhasil<br>";
+    var_dump($this->edit_majalah);die();
+
   }
 
   public function update_majalah($data_update)

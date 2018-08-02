@@ -4,6 +4,9 @@
   session_start();
   include('controllers/pelapak/class_jual_majalah.php');
   $dbConn_majalah = new Controllers_Majalah();
+
+  include('controllers/pelapak/class_jual_komik.php');
+  $dbConn_komik = new Controllers_Komik();
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,12 +48,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
       <ul class="nav navbar-nav">
-        <li> <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true" style="padding:0px;"></span>Home</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-book" aria-hidden="true" style="padding:0px;"></span>Majalah</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-camera" aria-hidden="true" style="padding:0px;"></span>Video</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-paperclip" aria-hidden="true" style="padding:0px;"></span>Komik</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="padding:0px;"></span>Event</a> </li>
-        <li> <a href="#"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="padding:0px;"></span>Tentang</a> </li>
+        <li> <a href="index.php"><span class="glyphicon glyphicon-home" aria-hidden="true" style="padding:0px;"></span>Home</a> </li>
+        <li> <a href="views/menu/majalah.php"><span class="glyphicon glyphicon-book" aria-hidden="true" style="padding:0px;"></span>Majalah</a> </li>
+        <li> <a href="views/menu/video.php"><span class="glyphicon glyphicon-camera" aria-hidden="true" style="padding:0px;"></span>Video</a> </li>
+        <li> <a href="views/menu/komik.php"><span class="glyphicon glyphicon-paperclip" aria-hidden="true" style="padding:0px;"></span>Komik</a> </li>
       </ul>
 
       <?php
@@ -246,71 +247,50 @@
   <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center>
 </div>
 
-<div class="container-fluid">
-  <br><br>
-  <h2>Komik</h2>
-  <hr>
-  <div class="row" align="center">
-    <div class="col-6 col-md-4">
-      <a href="#">
-        <div class="k-card t-cart">
-        <!-- <img style="background-image:url(https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg);" class="img-card"> -->
-        <img src="https://i.ytimg.com/vi/ebRL-f7tLIg/maxresdefault.jpg" alt="" class="img-card">
-          <div class="k-card-body">
-            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
-          </div>
-          <div class="k-card-footer">
-            <small>Brad Traversy</small>
-            <strong class="f-right">IDR 194.000,00</strong>
-          </div>
-          <div class="k-cart-add">
-            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
-          </div>
-        </div>
-      </a>
-    </div>
+<?php
+$tampil = $dbConn_komik->tampil_komik();
 
-    <div class="col-6 col-md-4">
-      <a href="#">
-        <div class="k-card t-cart">
-          <!-- <img style="background-image:url(https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg);" class="img-card"> -->
-          <img src="https://meltingpotsandothercalamities.files.wordpress.com/2017/05/img_7554.jpg" alt="" class="img-card">
-          <div class="k-card-body">
-            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
-          </div>
-          <div class="k-card-footer">
-            <small>Brad Traversy</small>
-            <strong class="f-right">IDR 180.000,00</strong>
-          </div>
-          <div class="k-cart-add">
-            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
-          </div>
-        </div>
-      </a>
-    </div>
+if ($tampil != null) {
+  ?>
+    <div class="container-fluid">
+      <br><br>
+      <h2>Komik</h2>
+      <hr>
+      <div class="row" align="center">
+        <?php
 
-    <div class="col-6 col-md-4">
-      <a href="#">
-        <div class="k-card t-cart">
-          <!-- <img style="background-image:url(https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg);" class="img-card"> -->
-          <img src="https://swebtoon-phinf.pstatic.net/20170803_157/1501762720374fIQbh_JPEG/thumbnail.jpg" alt="" class="img-card">
-          <div class="k-card-body">
-            <h4>Upin Ipin Terbaru 2017 </h4>
-          </div>
-          <div class="k-card-footer">
-            <small>Brad Traversy</small>
-            <strong class="f-right">IDR 250.000,00</strong>
-          </div>
-          <div class="k-cart-add">
-            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
-          </div>
-        </div>
-      </a>
-    </div>
+            if (isset($tampil)) {
+              foreach ($tampil as $tampil) {
+                ?>
+                <div class="col-6 col-md-4">
+                  <a href="#">
+                    <div class="k-card t-cart">
+                    <img style="background-image:url('public/gambar_barang/<?php echo $tampil['Foto_Komik']; ?>');" class="img-card">
+                    <!-- <img src="http://sales-jasatama.890m.com/wp-content/uploads/2016/09/10584-majalah-bobo-edisi-terbaru-15-terbit-21-juli-2016.jpg" alt="" class="img-card"> -->
+                      <div class="k-card-body">
+                        <h4> <?php echo $tampil['Nama_Komik']; ?></h4>
+                      </div>
+                      <div class="k-card-footer">
+                        <small> <?php echo $tampil['NamaLengkap']; ?></small>
+                        <strong class="f-right">IDR <?php echo $tampil['Harga']; ?></strong>
+                      </div>
+                      <div class="k-cart-add">
+                        <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <?php
+              }
+            }
+         ?>
 
-  </div>
-  <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center>
-</div>
+      </div>
+        <center><a href="views/menu/komik.php"><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></a> </center>
+    </div>
+  <?php
+}
+ ?>
 
 <?php
 $tampil = $dbConn_majalah->tampil();
@@ -351,7 +331,7 @@ if ($tampil != null) {
          ?>
 
       </div>
-        <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center>
+        <center> <a href="views/menu/majalah.php"><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></a></center>
     </div>
   <?php
 }

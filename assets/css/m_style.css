@@ -181,3 +181,7 @@ a:hover{
 .box-cart{
   margin-left: 15px;
 }
+
+#k-majalah{display: none;}
+#k-komik{display: none;}
+#k-video{display: none;}

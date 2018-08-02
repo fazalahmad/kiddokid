@@ -16,6 +16,30 @@ $(document).click(function(e){
 
 
 
+$('#kategori').change(function(){
+  var kategori = $('#kategori').val();
+  if (kategori=='pilih_kategori') {
+    $('#k-majalah').css("display","none");
+    $('#k-komik').css("display","none");
+    $('#k-video').css("display","none");
+  }else if (kategori == 'majalah') {
+      $('#k-majalah').css("display","block");
+      $('#k-komik').css("display","none");
+      $('#k-video').css("display","none");
+  }else if(kategori == 'komik'){
+      $('#k-komik').css("display","block");
+      $('#k-majalah').css("display","none");
+      $('#k-video').css("display","none");
+  }else if(kategori == 'video'){
+      $('#k-komik').css("display","none");
+      $('#k-majalah').css("display","none");
+      $('#k-video').css("display","block");
+  }
+})
+
+
+
+
 
 
 
