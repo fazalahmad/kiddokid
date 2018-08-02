@@ -59,10 +59,72 @@ class Controllers_Majalah
 
   }
 
+  public function tampil_pelapak()
+  {
+    // $sql = 'SELECT * FROM '.$this->table.' join "'.$table_user.'" on user.Email=majalah.Email';
+    $email = $_SESSION['Email'];
+    $sql = "SELECT * FROM user join majalah on user.Email= majalah.Email  and user.Email='$email' ORDER BY id_majalah DESC ";
+    // var_dump($sql); die();
+      try{
+          $query = $this->conn->query($sql);
+          return $query->fetchAll();
+      } catch (PDOException $ex) {
+          print "<b>Kesalahan :</b> ".$ex->getMessage().' <b>di</b> '
+          .$ex->getFile().' <b>pada baris ke-</b>'.$ex->getLine().'<br>';
+      }
+  }
+
   public function tampil()
   {
     // $sql = 'SELECT * FROM '.$this->table.' join "'.$table_user.'" on user.Email=majalah.Email';
-    $sql = 'SELECT * FROM user join majalah on user.Email= majalah.Email';
+    $sql = 'SELECT * FROM user join majalah on user.Email= majalah.Email ORDER BY id_majalah DESC';
+      try{
+          $query = $this->conn->query($sql);
+          return $query->fetchAll();
+      } catch (PDOException $ex) {
+          print "<b>Kesalahan :</b> ".$ex->getMessage().' <b>di</b> '
+          .$ex->getFile().' <b>pada baris ke-</b>'.$ex->getLine().'<br>';
+      }
+  }
+
+  public function delete_majalah($id)
+  {
+
+    $sql = 'DELETE FROM '.$this->table_majalah.' WHERE id_majalah = "'.$id.'" ';
+
+      try{
+      $query = $this->conn->exec($sql);
+      return $query.' data dihapus.';
+      } catch (PDOException $ex) {
+      print "<b>Kesalahan :</b> ".$ex->getMessage().' <b>di</b> '
+      .$ex->getFile().' <b>pada baris ke-</b>'.$ex->getLine().'<br>';
+      }
+  }
+
+  public function edit_majalah($id)
+  {
+    $sql = "SELECT * FROM majalah where id_majalah = '$id'";
+
+      try{
+          $query = $this->conn->query($sql);
+          $hasil = $query->fetchAll();
+
+          foreach ($hasil as $hasil) {
+            $tampil[] = $hasil;
+          }
+
+
+      } catch (PDOException $ex) {
+          print "<b>Kesalahan :</b> ".$ex->getMessage().' <b>di</b> '
+          .$ex->getFile().' <b>pada baris ke-</b>'.$ex->getLine().'<br>';
+      }
+
+      return $tampil;
+  }
+
+  public function update_majalah($data_update)
+  {
+    $sql = "UPDATE majalah set Nama_Majalah='$data_update[1]', Kategori = '$data_update[2]', Harga='$data_update[3]', Deskripsi_Majalah='$data_update[4]', Foto_Majalah='$data_update[5]', Edisi_Majalah='$data_update[6]' where id_majalah='$data_update[0]' " ;
       try{
           $query = $this->conn->query($sql);
           return $query->fetchAll();

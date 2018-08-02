@@ -176,32 +176,24 @@
 </nav>
 
 <!--body-start-->
-<div>
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Jual Barang</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">List Majalah</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">List Komik</a></li>
-    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">List Video</a></li>
-  </ul>
+<div class="container-fluid">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h2>Update Barang</h2></div>
+    <div class="panel-body">
 
-  <!-- Tab panes -->
-  <!--start isi_jual barang -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
-      <div class="container-fluid">
-        <div class="panel panel-default">
-          <div class="panel-heading"><h2>Jual Barang</h2></div>
-          <div class="panel-body">
-
-            <form  action="" method="post" enctype="multipart/form-data" >
-              <div class="row">
+      <form  action="" method="post" enctype="multipart/form-data" >
+        <div class="row">
+          <?php
+              // $tampil = $dbConn_majalah->edit_majalah($id);
+              var_dump($dbConn_majalah->edit_majalah($id)); die();
+              foreach ($tampil as $tampil) {
+                ?>
                 <div class="col-xs-12 col-md-4">
                   <div class="panel panel-default">
                     <div class="panel-heading"><h3>Gambar Barang</h3></div>
                     <div class="panel-body">
-                      <input type="file" id="file" name="foto_barang" multipart />
+                      <input type="file" id="file" name="foto_barang" value="<?php echo $tampil['Foto_Majalah']; ?>" />
 
                     </div>
                   </div>
@@ -218,33 +210,33 @@
                           <option value="pilih_kategori">Pilih Kategori</option>
                           <option value="video">Video</option>
                           <option value="komik">Komik</option>
-                          <option value="majalah">Majalah</option>
+                          <option value="majalah" selected>Majalah</option>
                         </select>
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">Nama Barang</label>
-                        <input type="text" name="nama_barang" class="form-control" id="exampleInputEmail1" placeholder="Nama Barang">
+                        <input type="text" name="nama_barang" class="form-control" id="exampleInputEmail1" placeholder="Nama Barang" value="<?php echo $tampil['Nama_Majalah']; ?>">
                       </div>
 
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">Edisi</label>
-                        <input type="number" min="1" name="edisi" class="form-control" placeholder="Edisi Majalah" style="width:150px;">
+                        <input type="number" min="1" name="edisi" class="form-control" placeholder="Edisi Majalah" style="width:150px;" value="<?php echo $tampil['Edisi_Majalah']; ?>">
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">Harga</label>
                         <div class="input-group" style="width:300px;">
                           <span class="input-group-addon">Rp</span>
-                          <input type="text" name="harga" class="form-control" aria-label="Amount (to the nearest dollar)">
+                          <input type="text" name="harga" class="form-control" aria-label="Amount (to the nearest dollar)" value="<?php echo $tampil['Harga']; ?>">
                           <span class="input-group-addon">.00</span>
                         </div>
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">Deskripsi</label>
-                        <textarea name="deskripsi" class="form-control" rows="10"></textarea>
+                        <textarea name="deskripsi" class="form-control" rows="10"><?php echo $tampil['Deskripsi_Majalah']; ?></textarea>
                       </div>
 
 
@@ -254,76 +246,20 @@
                       </div> -->
 
                       <div class="form-group">
-                        <button type="submit" class="btn btn-primary" name="jual_barang" style="width:150px; float:right;">Jual</button>
+                        <button type="submit" name="update_majalah"class="btn btn-primary" style="width:150px; float:right;">Edit Barang</button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </form>
-
-          </div>
-          </div>
-
-      </div>
-    </div>
-    <!--end isi_jual barang -->
-    <div role="tabpanel" class="tab-pane" id="profile">
-      <table id="example" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Kategori</th>
-                <th>Nama barang</th>
-                <th>Edisi</th>
-                <th>Deskripsi</th>
-                <th>Foto</th>
-                <th>Email</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-          <?php
-              $tampil = $dbConn_majalah->tampil_pelapak();
-              $nomor = array_sum($tampil);
-              for ($i=0; $i <= $nomor ; $i++) {
-                foreach ($tampil as $tampil) {
-                  ?>
-                  <tr>
-
-                      <td> <?php echo $i=$i+1; ?></td>
-                      <td> <?php echo $tampil['Kategori']; ?></td>
-                      <td><?php echo $tampil['NamaLengkap']; ?></td>
-                      <td> <?php echo $tampil['Edisi_Majalah']; ?></td>
-                      <td> <?php echo $tampil['Deskripsi_Majalah']; ?></td>
-                      <td> <img src="../../public/gambar_barang/<?php echo $tampil['Foto_Majalah']; ?>" alt="" width="50"> </td>
-                      <td> <?php echo $tampil['Email']; ?></td>
-                      <td> <button type="button" class="btn btn-success"><a href="jual_majalah.php?id_majalah=<?php echo $tampil['id_majalah']; ?>&aksi=edit">Edit</a></button>
-                          <button type="button" class="btn btn-danger"><a href="edit_majalah.php?id_majalah=<?php echo $tampil['id_majalah']; ?>&aksi=delete">Hapus</a></button>
-                      </td>
-                  </tr>
-                  <?php
-                }
+                <?php
               }
-
            ?>
 
-        </tbody>
-        <tfoot>
-            <tr>
-                <!-- <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th> -->
-            </tr>
-        </tfoot>
-    </table>
+        </div>
+      </form>
+
     </div>
-    <div role="tabpanel" class="tab-pane" id="messages">...</div>
-    <div role="tabpanel" class="tab-pane" id="settings">...</div>
-  </div>
+    </div>
 
 </div>
 <!--body-end-->
@@ -347,38 +283,17 @@
 </html>
 
 <?php
-  if (isset($_POST['jual_barang'])) {
-      $filename = $_FILES['foto_barang']['name'];
-      $nama_barang = $_POST['nama_barang'];
-      $kategori = $_POST['kategori'];
-      $harga = $_POST['harga'];
-      $deskripsi = $_POST['deskripsi'];
-      $edisi = $_POST['edisi'];
-
-      $data_barang = null;
-      $data_barang[0]=$nama_barang;
-      $data_barang[1]=$kategori;
-      $data_barang[2]=$harga;
-      $data_barang[3]=$deskripsi;
-      $data_barang[4]=$filename;
-      $data_barang[5]=$edisi;
-      if ($kategori == 'majalah') {
-        // echo "suskses"; die();
-        $dbConn_majalah->tambah_majalah($data_barang);
-      }
-  }
-
-  if(isset($_GET['aksi'])){
-      if($_GET['aksi'] == 'delete'){
-      $dbConn_majalah->delete_majalah($_GET['id_majalah']);
+  if(isset($_POST['update_majalah'])){
+      $data_update = null;
+      $data_update[0] = $tampil['id_majalah'];
+      $data_update[1] = $_POST['nama_barang'];
+      $data_update[2] = $_POST['kategori'];
+      $data_update[3] = $_POST['harga'];
+      $data_update[4] = $_POST['deskripsi'];
+      $data_update[5] = $_POST['foto_barang'];
+      $data_update[6] = $_POST['edisi'];
+      var_dump($data_update); die();
+      $dbConn_majalah->delete_majalah($data_update);
       header('location: jual_majalah.php');
-      }
-  }
-
-  if(isset($_GET['aksi'])){
-      if($_GET['aksi'] == 'edit'){
-      $dbConn_majalah->edit_majalah($_GET['id_majalah']);
-      header('location: edit_majalah.php');
-      }
   }
  ?>
