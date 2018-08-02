@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Kiddo Kid</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
     <link rel=”icon” href=”assets/img/icon.png”>
 
     <!-- Bootstrap -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="assets/css/m_style.css" rel="stylesheet">
 
   </head>
@@ -43,13 +48,52 @@
 
       <?php
         session_start();
-        if ($_SESSION['Level'] != 'pelapak') {
+        if (empty($_SESSION['Level'])) {
           ?>
           <ul class="nav navbar-nav f-right">
             <li> <a href="views/user/login.php">Login</a> </li>
-            <li> <a href="/views/user/daftar.php">Daftar</a> </li>
-            <li id="togleuser"><img src="https://smkn1pts.files.wordpress.com/2009/11/pas-photo-baru.jpg" alt="" class="user-profile cart-pointer">
+            <li> <a href="views/user/daftar.php">Daftar</a> </li>
+          </ul>
+
+          <ul class="nav navbar-nav f-right">
+            <li class="cart" id="cart-dropdown"> <a class="cart-pointer" > <img src="assets/img/shopping-cart.png" alt="" width="25" > </a>
+                <span class="sum-barang">12</span>
+              <div class="overlay card-area">
+                <div class="header-cart">
+                    <b>Total : 0 Barang</b>
+                </div>
+                <div class="content-cart">
+
+                  <div class="flex-row cart-box">
+                    <div class="cart-img-box">
+                      <img src="https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg" alt="" class="img-card-box">
+                    </div>
+                      <div class="box-cart">
+                          <strong class="box-judul">Nama Barang  Nama Barang  </strong>
+                          <div class="box-sum">
+                            1 Barang
+                          </div>
+                      </div>
+                  </div>
+                  <div class="flex-row cart-box">
+                    <div class="cart-img-box">
+                      <img src="https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg" alt="" class="img-card-box">
+                    </div>
+                      <div class="box-cart">
+                          <strong class="box-judul">Nama Barang  Nama Barang  </strong>
+                          <div class="box-sum">
+                            1 Barang
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+                <a href="#" class="footer-cart" >
+                      <b>Lihat Keranjang</b>
+                </a>
+              </div>
             </li>
+
           </ul>
           <?php
         }else {
@@ -57,6 +101,10 @@
             header('location: views/user/login.php');
           } else {
             ?>
+          <ul class="nav navbar-nav f-right">
+            <li> <a ></a> </li>
+            <li id="togleuser"><img src="public\gambar_user\user.svg" alt="" class="user-profile cart-pointer"></li>
+          </ul>
             <div class="overlay-user">
               <div class="header-cart">
                 <small style="display:block">Hello,</small>
@@ -327,7 +375,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="assets/js/bootstrap.min.js"></script>
+<!-- <script src="assets/js/bootstrap.min.js"></script> -->
 <script src="assets/js/m_javascript.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -30,12 +30,13 @@
 
 		</p>
     <p>
-			<label for="level" class="floatLabel">Level</label>
-      <select class="" name="level">
+			<!-- <label for="level" class="floatLabel">Level</label> -->
+      <input type="hidden" name="level" value="pelapak">
+      <!-- <select class="" name="level">
           <option value="">Pilih Akses</option>
           <option value="admin">Admin</option>
           <option value="pelapak">Pelapak</option>
-      </select>
+      </select> -->
 
 		</p>
 
@@ -58,11 +59,7 @@ if (isset($_POST['daftar'])) {
   $data[2] = md5($_POST['password']);
   $data[3] = $_POST['level'];
   $sukses = $dbConn->register($data);
-  if ($sukses == true) {
-    header('location: login.php');
-  } else {
-    die('Data Gagal di daftar');
-  }
+
 
 }
  ?>

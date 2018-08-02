@@ -30,7 +30,7 @@
 		</p>
 	</form>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script  src=".../.../assets/js/js_daf.js"></script>
+  <!-- <script src="../../assets/js/js_daf.js"></script> -->
 
 </body>
 </html>
@@ -41,11 +41,7 @@ if (isset($_POST['login'])) {
   $data[0] = $_POST['email'];
   $data[1] = md5($_POST['password']);
   $sukses = $dbConn->post_login($data);
-  // if ($sukses == true) {
-  //   header('location: ../../index.php');
-  // } else {
-  //   die('Data Gagal di Login');
-  // }
+
 
 }
 

@@ -31,6 +31,8 @@ class daftar
         $distributor = $data[3];
         # execute
         $query->execute();
+        
+        header('location: login.php');
       } catch (PDOException $ex) {
         print "<b>Kesalahan :</b> ".$ex->getMessage().' <b>di</b> ' .$ex->getFile().' <b>pada baris ke-</b>'.$ex->getLine().'<br>';
       }

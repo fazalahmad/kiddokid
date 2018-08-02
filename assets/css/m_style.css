@@ -1,3 +1,4 @@
+.bor-red{border: 1px solid red !important;}
 .f-right{float: right;}
 .cart{
   border-left: 1px solid #C3B8B7;
@@ -42,7 +43,6 @@
   width: 35px;
   height: 35px;
   margin-top: 10px;
-  border: 1px solid red;
   border-radius: 50%;
 }
 .overlay-user{

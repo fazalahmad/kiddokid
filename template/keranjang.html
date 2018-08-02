@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Kiddo Kid</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
     <link rel=”icon” href=”assets/img/icon.png”>
 
     <!-- Bootstrap -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets\css\m_style.css" rel="stylesheet">
+    <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="../assets/css/m_style.css" rel="stylesheet">
 
   </head>
   <body>
@@ -41,79 +46,339 @@
         <li> <a href="#"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="padding:0px;"></span>Tentang</a> </li>
       </ul>
 
-      <ul class="nav navbar-nav f-right">
-        <li> <a href="#">Login</a> </li>
-        <li> <a href="#">Daftar</a> </li>
-      </ul>
+      <?php
+        session_start();
+        if (empty($_SESSION['Level'])) {
+          ?>
+          <ul class="nav navbar-nav f-right">
+            <li> <a href="views/user/login.php">Login</a> </li>
+            <li> <a href="views/user/daftar.php">Daftar</a> </li>
+          </ul>
 
-      <ul class="nav navbar-nav f-right">
-        <li class="cart" id="cart-dropdown"> <a class="cart-pointer" > <img src="assets\img\shopping-cart.png" alt="" width="25" > </a>
-            <span class="sum-barang">12</span>
-          <div id="mycart" class="overlay card-area">
-            <div class="header-cart">
-                <b>Total : 0 Barang</b>
-            </div>
-            <div class="content-cart">
-
-              <div class="flex-row cart-box">
-                <div class="cart-img-box">
-                  <img src="https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg" alt="" class="img-card-box">
+          <ul class="nav navbar-nav f-right">
+            <li class="cart" id="cart-dropdown"> <a class="cart-pointer" > <img src="assets/img/shopping-cart.png" alt="" width="25" > </a>
+                <span class="sum-barang">12</span>
+              <div class="overlay card-area">
+                <div class="header-cart">
+                    <b>Total : 0 Barang</b>
                 </div>
-                  <div class="box-cart">
-                      <strong class="box-judul">Nama Barang  Nama Barang  </strong>
-                      <div class="box-sum">
-                        1 Barang
+                <div class="content-cart">
+
+                  <div class="flex-row cart-box">
+                    <div class="cart-img-box">
+                      <img src="https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg" alt="" class="img-card-box">
+                    </div>
+                      <div class="box-cart">
+                          <strong class="box-judul">Nama Barang  Nama Barang  </strong>
+                          <div class="box-sum">
+                            1 Barang
+                          </div>
                       </div>
                   </div>
-              </div>
-              <div class="flex-row cart-box">
-                <div class="cart-img-box">
-                  <img src="https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg" alt="" class="img-card-box">
-                </div>
-                  <div class="box-cart">
-                      <strong class="box-judul">Nama Barang  Nama Barang  </strong>
-                      <div class="box-sum">
-                        1 Barang
+                  <div class="flex-row cart-box">
+                    <div class="cart-img-box">
+                      <img src="https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg" alt="" class="img-card-box">
+                    </div>
+                      <div class="box-cart">
+                          <strong class="box-judul">Nama Barang  Nama Barang  </strong>
+                          <div class="box-sum">
+                            1 Barang
+                          </div>
                       </div>
                   </div>
+
+                </div>
+                <a href="#" class="footer-cart" >
+                      <b>Lihat Keranjang</b>
+                </a>
               </div>
+            </li>
 
+          </ul>
+          <?php
+        }else {
+          if (empty($_SESSION['Email'])) {
+            header('location: views/user/login.php');
+          } else {
+            ?>
+          <ul class="nav navbar-nav f-right">
+            <li> <a ></a> </li>
+            <li id="togleuser"><img src="https://smkn1pts.files.wordpress.com/2009/11/pas-photo-baru.jpg" alt="" class="user-profile cart-pointer"></li>
+          </ul>
+            <div class="overlay-user">
+              <div class="header-cart">
+                <small style="display:block">Hello,</small>
+                <b><?php echo $_SESSION['NamaLengkap']; ?></b>
+              </div>
+              <div class="content-cart">
+                <ul style="list-style: none; padding-left:16px;">
+                  <li class="text-pad"><a href="#" class="text-link">Halaman Profile</a></li>
+                  <li class="text-pad"><a href="#" class="text-link">Lapak Saya</a></li>
+                  <li class="text-pad"><a href="views/user/logout.php" class="text-link">Logout</a></li>
+                </ul>
+              </div>
             </div>
-            <a href="#" class="footer-cart" >
-                  <b>Lihat Keranjang</b>
-            </a>
-          </div>
-        </li>
 
-      </ul>
+            <ul class="nav navbar-nav f-right">
+              <li class="cart" id="cart-dropdown"> <a class="cart-pointer" > <img src="assets/img/shopping-cart.png" alt="" width="25" > </a>
+                  <span class="sum-barang">12</span>
+                <div class="overlay card-area">
+                  <div class="header-cart">
+                      <b>Total : 0 Barang</b>
+                  </div>
+                  <div class="content-cart">
+
+                    <div class="flex-row cart-box">
+                      <div class="cart-img-box">
+                        <img src="https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg" alt="" class="img-card-box">
+                      </div>
+                        <div class="box-cart">
+                            <strong class="box-judul">Nama Barang  Nama Barang  </strong>
+                            <div class="box-sum">
+                              1 Barang
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-row cart-box">
+                      <div class="cart-img-box">
+                        <img src="https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg" alt="" class="img-card-box">
+                      </div>
+                        <div class="box-cart">
+                            <strong class="box-judul">Nama Barang  Nama Barang  </strong>
+                            <div class="box-sum">
+                              1 Barang
+                            </div>
+                        </div>
+                    </div>
+
+                  </div>
+                  <a href="#" class="footer-cart" >
+                        <b>Lihat Keranjang</b>
+                  </a>
+                </div>
+              </li>
+
+            </ul>
+            <?php
+          }
+        }
+      ?>
+
+      <?php
+
+       ?>
+
     </div><!-- /.navbar-collapse -->
 
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-default">1</button>
-  <button type="button" class="btn btn-default">2</button>
+<!--body-start-->
+<div class="container-fluid">
+  <h2>Video</h2>
+  <hr>
+  <div class="row" align="center">
+    <div class="col-6 col-md-4">
+      <a href="#" >
+        <div class="k-card t-cart" >
+          <img id="video" style="background-image:url(https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg);" class="img-card">
+          <div class="k-card-body">
+            <h4 id="judul_video">Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
+          </div>
+          <div class="k-card-footer">
+            <small id="publish_video" >Brad Traversy</small>
+            <strong id="harga_video" class="f-right">IDR 194.000,00</strong>
+          </div>
 
-  <div class="btn-group" role="group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Dropdown
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href="#">Dropdown link</a></li>
-      <li><a href="#">Dropdown link</a></li>
-    </ul>
+          <div class="k-cart-add">
+            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+          </div>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="col-6 col-md-4">
+      <a href="#" >
+        <div class="k-card t-cart">
+          <img style="background-image:url(https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg);" class="img-card">
+          <div class="k-card-body">
+            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
+          </div>
+          <div class="k-card-footer">
+            <small>Brad Traversy</small>
+            <strong class="f-right">IDR 194.000,00</strong>
+          </div>
+
+          <div class="k-cart-add">
+            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+          </div>
+
+        </div>
+      </a>
+
+    </div>
+
+    <div class="col-6 col-md-4">
+      <a href="#">
+        <div class="k-card t-cart">
+          <img style="background-image:url(https://swebtoon-phinf.pstatic.net/20170803_157/1501762720374fIQbh_JPEG/thumbnail.jpg);" class="img-card">
+          <div class="k-card-body">
+            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
+          </div>
+          <div class="k-card-footer">
+            <small>Brad Traversy</small>
+            <strong class="f-right">IDR 250.000,00</strong>
+          </div>
+          <div class="k-cart-add">
+            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+          </div>
+        </div>
+      </a>
+    </div>
   </div>
+  <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center>
 </div>
 
+<div class="container-fluid">
+  <br><br>
+  <h2>Komik</h2>
+  <hr>
+  <div class="row" align="center">
+    <div class="col-6 col-md-4">
+      <a href="#">
+        <div class="k-card t-cart">
+        <!-- <img style="background-image:url(https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg);" class="img-card"> -->
+        <img src="https://i.ytimg.com/vi/ebRL-f7tLIg/maxresdefault.jpg" alt="" class="img-card">
+          <div class="k-card-body">
+            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
+          </div>
+          <div class="k-card-footer">
+            <small>Brad Traversy</small>
+            <strong class="f-right">IDR 194.000,00</strong>
+          </div>
+          <div class="k-cart-add">
+            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+          </div>
+        </div>
+      </a>
+    </div>
 
+    <div class="col-6 col-md-4">
+      <a href="#">
+        <div class="k-card t-cart">
+          <!-- <img style="background-image:url(https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg);" class="img-card"> -->
+          <img src="https://meltingpotsandothercalamities.files.wordpress.com/2017/05/img_7554.jpg" alt="" class="img-card">
+          <div class="k-card-body">
+            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
+          </div>
+          <div class="k-card-footer">
+            <small>Brad Traversy</small>
+            <strong class="f-right">IDR 180.000,00</strong>
+          </div>
+          <div class="k-cart-add">
+            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+          </div>
+        </div>
+      </a>
+    </div>
 
+    <div class="col-6 col-md-4">
+      <a href="#">
+        <div class="k-card t-cart">
+          <!-- <img style="background-image:url(https://i.ytimg.com/vi/jXjVdIgIw8c/maxresdefault.jpg);" class="img-card"> -->
+          <img src="https://swebtoon-phinf.pstatic.net/20170803_157/1501762720374fIQbh_JPEG/thumbnail.jpg" alt="" class="img-card">
+          <div class="k-card-body">
+            <h4>Upin Ipin Terbaru 2017 </h4>
+          </div>
+          <div class="k-card-footer">
+            <small>Brad Traversy</small>
+            <strong class="f-right">IDR 250.000,00</strong>
+          </div>
+          <div class="k-cart-add">
+            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+          </div>
+        </div>
+      </a>
+    </div>
 
+  </div>
+  <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center>
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets\js\m_javascript.js"></script>
-  </body>
+<div class="container-fluid">
+  <br><br>
+  <h2>Majalah</h2>
+  <hr>
+  <div class="row" align="center">
+    <div class="col-6 col-md-4">
+      <a href="#">
+        <div class="k-card t-cart">
+        <img style="background-image:url(http://sales-jasatama.890m.com/wp-content/uploads/2016/09/10584-majalah-bobo-edisi-terbaru-15-terbit-21-juli-2016.jpg);" class="img-card">
+        <!-- <img src="http://sales-jasatama.890m.com/wp-content/uploads/2016/09/10584-majalah-bobo-edisi-terbaru-15-terbit-21-juli-2016.jpg" alt="" class="img-card"> -->
+          <div class="k-card-body">
+            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
+          </div>
+          <div class="k-card-footer">
+            <small>Brad Traversy</small>
+            <strong class="f-right">IDR 15.000,00</strong>
+          </div>
+          <div class="k-cart-add">
+            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-6 col-md-4">
+      <a href="#">
+        <div class="k-card t-cart">
+        <img style="background-image:url(https://scoopadm.apps-foundry.com/ebook-covers/39381/big_covers/ID_BOBO2017MTH07ED15_B.jpg);" class="img-card">
+        <!-- <img src="https://scoopadm.apps-foundry.com/ebook-covers/39381/big_covers/ID_BOBO2017MTH07ED15_B.jpg" alt="" class="img-card"> -->
+          <div class="k-card-body">
+            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
+          </div>
+          <div class="k-card-footer">
+            <small>Brad Traversy</small>
+            <strong class="f-right">IDR 20.000,00</strong>
+          </div>
+          <div class="k-cart-add">
+            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-6 col-md-4">
+      <a href="#">
+        <div class="k-card t-cart">
+        <img style="background-image:url(https://topbisnis.org/wp-content/uploads/2017/05/Pasang-Iklan-Majalah-Bobo-Junior.jpg);" class="img-card">
+        <!-- <img src="https://topbisnis.org/wp-content/uploads/2017/05/Pasang-Iklan-Majalah-Bobo-Junior.jpg" alt="" class="img-card"> -->
+          <div class="k-card-body">
+            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
+          </div>
+          <div class="k-card-footer">
+            <small>Brad Traversy</small>
+            <strong class="f-right">IDR 25.000,00</strong>
+          </div>
+          <div class="k-cart-add">
+            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+          </div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+    <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center>
+</div>
+<!--body-end-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<!-- <script src="assets/js/bootstrap.min.js"></script> -->
+<script src="../assets/js/m_javascript.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+
+</body>
 </html>

@@ -25,7 +25,7 @@ class Controllers_Login
 
       // $sql = 'SELECT * FROM user where Email = "'.$data[0].'" AND Password = "'.$data[1].'"';
       $sql = 'SELECT * FROM '.$this->table. ' where Email= "'.$email.'" AND Password = "'.$pass.'" ' ;
-
+      
       try {
         $query = $this->conn->query($sql);
         $tampil = $query->fetch();
@@ -40,6 +40,7 @@ class Controllers_Login
           $_SESSION['Level'] = $tampil['Level'];
 
           header('location: ../../index.php');
+
         }
       } catch (PDOException $ex) {
         print "<b>Kesalahan :</b> ".$ex->getMessage().' <b>di</b> '.$ex->getFile().' <b>pada baris ke-</b>'.$ex->getLine().'<br>';
