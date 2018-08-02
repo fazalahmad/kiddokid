@@ -1,6 +1,10 @@
 <?php
-    include('../../controllers\user\class_daftar.php');
+    include('../../controllers/user/class_daftar.php');
     $dbConn = new daftar();
+    session_start();
+    if (isset($_SESSION['Email'])) {
+      header("location: ../../index.php");
+    }
  ?>
 
 <!DOCTYPE html>
@@ -8,7 +12,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Form Pendaftaran</title>
-      <link rel="stylesheet" href="../../assets\css\style_daf.css">
+      <link rel="stylesheet" href="../../assets/css/style_daf.css">
 </head>
 
 <body>
@@ -46,7 +50,7 @@
 	</form>
 
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script  src=".../.../assets\js\js_daf.js"></script>
+  <script  src=".../.../assets/js/js_daf.js"></script>
 
 </body>
 </html>

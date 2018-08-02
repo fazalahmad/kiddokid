@@ -1,5 +1,5 @@
 <?php
-include('../../controllers\pelapak\class_jual_majalah.php');
+include('../../controllers/pelapak/class_jual_majalah.php');
 $dbConn_majalah = new Controllers_Majalah();
  ?>
 <html lang="en">
@@ -106,7 +106,7 @@ $dbConn_majalah = new Controllers_Majalah();
             ?>
           <ul class="nav navbar-nav f-right">
             <li> <a ></a> </li>
-            <li id="togleuser"><img src="../../public\gambar_user\user.svg" alt="" class="user-profile cart-pointer"></li>
+            <li id="togleuser"><img src="../../public/gambar_user/user.svg" alt="" class="user-profile cart-pointer"></li>
           </ul>
             <div class="overlay-user">
               <div class="header-cart">

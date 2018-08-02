@@ -1,4 +1,5 @@
 <?php
+ob_start();
 /**
  *
  */
@@ -25,7 +26,7 @@ class Controllers_Login
 
       // $sql = 'SELECT * FROM user where Email = "'.$data[0].'" AND Password = "'.$data[1].'"';
       $sql = 'SELECT * FROM '.$this->table. ' where Email= "'.$email.'" AND Password = "'.$pass.'" ' ;
-      
+
       try {
         $query = $this->conn->query($sql);
         $tampil = $query->fetch();

@@ -1,3 +1,6 @@
+<?php
+  session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,7 +50,6 @@
       </ul>
 
       <?php
-        session_start();
         if (empty($_SESSION['Level'])) {
           ?>
           <ul class="nav navbar-nav f-right">
@@ -103,7 +105,7 @@
             ?>
           <ul class="nav navbar-nav f-right">
             <li> <a ></a> </li>
-            <li id="togleuser"><img src="public\gambar_user\user.svg" alt="" class="user-profile cart-pointer"></li>
+            <li id="togleuser"><img src="public/gambar_user/user.svg" alt="" class="user-profile cart-pointer"></li>
           </ul>
             <div class="overlay-user">
               <div class="header-cart">

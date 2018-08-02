@@ -1,6 +1,11 @@
 <?php
-    include('../../controllers\user\class_login.php');
+    ob_start();
+    include('../../controllers/user/class_login.php');
     $dbConn = new Controllers_Login();
+    session_start();
+    if (isset($_SESSION['Email'])) {
+      header("location: ../../index.php");
+    }
  ?>
 <!DOCTYPE html>
 <html lang="en" >
