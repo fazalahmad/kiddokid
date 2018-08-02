@@ -21,29 +21,54 @@ class Controllers_Majalah
 
   public function tambah_majalah($data_barang)
   {
-    var_dump($data_barang); die();
+    session_start();
     try {
-      $sql = 'INSERT INTO '.$this->table.' (Nama_Majalah,Kategori,Harga,Deskripsi_Majalah, Foto_Majalah,Edisi_Majalah) VALUES (? , ? , ? , ?)';
+
+      $sql = 'INSERT INTO '.$this->table.'
+        (Nama_Majalah,Kategori,Harga,Deskripsi_Majalah, Foto_Majalah,Edisi_Majalah,Email)
+        VALUES (? , ? , ? , ? , ? , ? , ?)';
 
       # bind
       $query = $this->conn->prepare($sql);
-      $query->bindParam(1, $title);
-      $query->bindParam(2, $author);
-      $query->bindParam(3, $year);
-      $query->bindParam(4, $distributor);
-      $nama_barang = $data[0];
-      $kategori = $data[1];
-      $harga = $data[2];
-      $deskripsi = $data[3];
-      $file_foto = $data[4];
-      $edisi = $data[5];
+      $query->bindParam(1, $nama_barang);
+      $query->bindParam(2, $kategori);
+      $query->bindParam(3, $harga);
+      $query->bindParam(4, $deskripsi);
+      $query->bindParam(5, $file_foto);
+      $query->bindParam(6, $edisi);
+      $query->bindParam(7, $_SESSION['Email']);
+
+      $nama_barang = $data_barang[0];
+      $kategori = $data_barang[1];
+      $harga = $data_barang[2];
+      $deskripsi = $data_barang[3];
+      $file_foto = $data_barang[4];
+      $edisi = $data_barang[5];
+
       # execute
       $query->execute();
 
-      header('location: login.php');
+      $location = "../../public/gambar_barang/".$file_foto; // Target path where file
+      $sourcePath = $_FILES['foto_barang']['tmp_name']; // Storing source path of the file in a variable
+      move_uploaded_file($sourcePath,$location);
+
+      header('location: ../../index.php');
     } catch (PDOException $ex) {
       print "<b>Kesalahan :</b> ".$ex->getMessage().' <b>di</b> ' .$ex->getFile().' <b>pada baris ke-</b>'.$ex->getLine().'<br>';
     }
+
+  }
+
+  public function tampil()
+  {
+    $sql = 'SELECT * FROM '.$this->table;
+      try{
+          $query = $this->conn->query($sql);
+          return $query->fetchAll();
+      } catch (PDOException $ex) {
+          print "<b>Kesalahan :</b> ".$ex->getMessage().' <b>di</b> '
+          .$ex->getFile().' <b>pada baris ke-</b>'.$ex->getLine().'<br>';
+      }
   }
 
 

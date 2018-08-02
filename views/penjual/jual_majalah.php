@@ -1,6 +1,10 @@
 <?php
-include('../../controllers/pelapak/class_jual_majalah.php');
-$dbConn_majalah = new Controllers_Majalah();
+    include('../../controllers/pelapak/class_jual_majalah.php');
+    $dbConn_majalah = new Controllers_Majalah();
+    session_start();
+    if (!isset($_SESSION['Email'])) {
+      header("location: ../../index.php");
+    }
  ?>
 <html lang="en">
   <head>
@@ -50,7 +54,6 @@ $dbConn_majalah = new Controllers_Majalah();
       </ul>
 
       <?php
-        session_start();
         if (empty($_SESSION['Level'])) {
           ?>
           <ul class="nav navbar-nav f-right">
@@ -117,13 +120,13 @@ $dbConn_majalah = new Controllers_Majalah();
                 <ul style="list-style: none; padding-left:16px;">
                   <li class="text-pad"><a href="#" class="text-link">Halaman Profile</a></li>
                   <li class="text-pad"><a href="#" class="text-link">Lapak Saya</a></li>
-                  <li class="text-pad"><a href="views/user/logout.php" class="text-link">Logout</a></li>
+                  <li class="text-pad"><a href="../../views/user/logout.php" class="text-link">Logout</a></li>
                 </ul>
               </div>
             </div>
 
             <ul class="nav navbar-nav f-right">
-              <li class="cart" id="cart-dropdown"> <a class="cart-pointer" > <img src="assets/img/shopping-cart.png" alt="" width="25" > </a>
+              <li class="cart" id="cart-dropdown"> <a class="cart-pointer" > <img src="../../assets/img/shopping-cart.png" alt="" width="25" > </a>
                   <span class="sum-barang">12</span>
                 <div class="overlay card-area">
                   <div class="header-cart">
@@ -264,43 +267,21 @@ $dbConn_majalah = new Controllers_Majalah();
 <?php
   if (isset($_POST['jual_barang'])) {
       $filename = $_FILES['foto_barang']['name'];
-      $location = "public/gambar_barang/".$filename; // Target path where file
-      $uploadOk = 1;
-      $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
-      $sourcePath = $_FILES['foto_barang']['tmp_name']; // Storing source path of the file in a variable
-      // Check image format
-      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-       && $imageFileType != "gif" ) {
-       $uploadOk = 0;
-      }
-      // $image_type = $_FILES["file"]["type"];
-      // $image_size = $_FILES["file"]["size"]; //Approx. 100kb files can be uploaded.
-      if($uploadOk == 0){
-          echo 0;
-      }else{
-         /* Upload file */
-         if(move_uploaded_file($sourcePath,$location) ){
-            echo $location;
-          }else{
-            echo 0;
-          }
-       }
-      // move_uploaded_file($sourcePath,$location) ; // Moving Uploaded file
-
       $nama_barang = $_POST['nama_barang'];
       $kategori = $_POST['kategori'];
       $harga = $_POST['harga'];
       $deskripsi = $_POST['deskripsi'];
       $edisi = $_POST['edisi'];
 
-      $data = null;
-      $data[0]=$filename;
-      $data[1]=$nama_barang;
-      $data[2]=$kategori;
-      $data[3]=$harga;
-      $data[4]=$deskripsi;
-      $data[5]=$edisi;
+      $data_barang = null;
+      $data_barang[0]=$nama_barang;
+      $data_barang[1]=$kategori;
+      $data_barang[2]=$harga;
+      $data_barang[3]=$deskripsi;
+      $data_barang[4]=$filename;
+      $data_barang[5]=$edisi;
       if ($kategori == 'majalah') {
+        // echo "suskses"; die();
         $dbConn_majalah->tambah_majalah($data_barang);
       }
   }

@@ -1,5 +1,8 @@
 <?php
   session_start();
+  ob_start();
+  include('controllers/pelapak/class_jual_majalah.php');
+  $dbConn_majalah = new Controllers_Majalah();
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,7 +118,7 @@
               <div class="content-cart">
                 <ul style="list-style: none; padding-left:16px;">
                   <li class="text-pad"><a href="#" class="text-link">Halaman Profile</a></li>
-                  <li class="text-pad"><a href="#" class="text-link">Lapak Saya</a></li>
+                  <li class="text-pad"><a href="views/penjual/jual_majalah.php" class="text-link">Lapak Saya</a></li>
                   <li class="text-pad"><a href="views/user/logout.php" class="text-link">Logout</a></li>
                 </ul>
               </div>
@@ -313,6 +316,9 @@
   <h2>Majalah</h2>
   <hr>
   <div class="row" align="center">
+    <?php
+        $tampil = $dbConn_majalah
+     ?>
     <div class="col-6 col-md-4">
       <a href="#">
         <div class="k-card t-cart">
