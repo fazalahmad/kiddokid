@@ -1,6 +1,7 @@
 <?php
-  session_start();
+
   ob_start();
+  session_start();
   include('controllers/pelapak/class_jual_majalah.php');
   $dbConn_majalah = new Controllers_Majalah();
  ?>
@@ -311,74 +312,51 @@
   <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center>
 </div>
 
-<div class="container-fluid">
-  <br><br>
-  <h2>Majalah</h2>
-  <hr>
-  <div class="row" align="center">
-    <?php
-        $tampil = $dbConn_majalah
-     ?>
-    <div class="col-6 col-md-4">
-      <a href="#">
-        <div class="k-card t-cart">
-        <img style="background-image:url(http://sales-jasatama.890m.com/wp-content/uploads/2016/09/10584-majalah-bobo-edisi-terbaru-15-terbit-21-juli-2016.jpg);" class="img-card">
-        <!-- <img src="http://sales-jasatama.890m.com/wp-content/uploads/2016/09/10584-majalah-bobo-edisi-terbaru-15-terbit-21-juli-2016.jpg" alt="" class="img-card"> -->
-          <div class="k-card-body">
-            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
-          </div>
-          <div class="k-card-footer">
-            <small>Brad Traversy</small>
-            <strong class="f-right">IDR 15.000,00</strong>
-          </div>
-          <div class="k-cart-add">
-            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
-          </div>
-        </div>
-      </a>
-    </div>
+<?php
+$tampil = $dbConn_majalah->tampil();
 
-    <div class="col-6 col-md-4">
-      <a href="#">
-        <div class="k-card t-cart">
-        <img style="background-image:url(https://scoopadm.apps-foundry.com/ebook-covers/39381/big_covers/ID_BOBO2017MTH07ED15_B.jpg);" class="img-card">
-        <!-- <img src="https://scoopadm.apps-foundry.com/ebook-covers/39381/big_covers/ID_BOBO2017MTH07ED15_B.jpg" alt="" class="img-card"> -->
-          <div class="k-card-body">
-            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
-          </div>
-          <div class="k-card-footer">
-            <small>Brad Traversy</small>
-            <strong class="f-right">IDR 20.000,00</strong>
-          </div>
-          <div class="k-cart-add">
-            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
-          </div>
-        </div>
-      </a>
-    </div>
+if ($tampil != null) {
+  ?>
+    <div class="container-fluid">
+      <br><br>
+      <h2>Majalah</h2>
+      <hr>
+      <div class="row" align="center">
+        <?php
 
-    <div class="col-6 col-md-4">
-      <a href="#">
-        <div class="k-card t-cart">
-        <img style="background-image:url(https://topbisnis.org/wp-content/uploads/2017/05/Pasang-Iklan-Majalah-Bobo-Junior.jpg);" class="img-card">
-        <!-- <img src="https://topbisnis.org/wp-content/uploads/2017/05/Pasang-Iklan-Majalah-Bobo-Junior.jpg" alt="" class="img-card"> -->
-          <div class="k-card-body">
-            <h4>Upin Ipin Terbaru 2017 | Animasi Terakhir Superboy Seru</h4>
-          </div>
-          <div class="k-card-footer">
-            <small>Brad Traversy</small>
-            <strong class="f-right">IDR 25.000,00</strong>
-          </div>
-          <div class="k-cart-add">
-            <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
-          </div>
-        </div>
-      </a>
-    </div>
+            if (isset($tampil)) {
+              foreach ($tampil as $tampil) {
+                ?>
+                <div class="col-6 col-md-4">
+                  <a href="#">
+                    <div class="k-card t-cart">
+                    <img style="background-image:url('public/gambar_barang/<?php echo $tampil['Foto_Majalah']; ?>');" class="img-card">
+                    <!-- <img src="http://sales-jasatama.890m.com/wp-content/uploads/2016/09/10584-majalah-bobo-edisi-terbaru-15-terbit-21-juli-2016.jpg" alt="" class="img-card"> -->
+                      <div class="k-card-body">
+                        <h4> <?php echo $tampil['Nama_Majalah']; ?></h4>
+                      </div>
+                      <div class="k-card-footer">
+                        <small> <?php echo $tampil['NamaLengkap']; ?></small>
+                        <strong class="f-right">IDR <?php echo $tampil['Harga']; ?></strong>
+                      </div>
+                      <div class="k-cart-add">
+                        <button type="button" name="button" class="btn-add">Tambah ke Keranjang</button>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <?php
+              }
+            }
+         ?>
 
-  </div>
-    <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center>
-</div>
+      </div>
+        <center><button class="btn btn-info btn-lg" style="margin-top:2%;">More</button></center>
+    </div>
+  <?php
+}
+ ?>
+
 <!--body-end-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

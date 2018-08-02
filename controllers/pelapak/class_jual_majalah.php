@@ -10,7 +10,8 @@ class Controllers_Majalah
   private $username = 'root';
   private $passwd = '';
   private $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-  private $table = 'majalah';
+  private $table_majalah = 'majalah';
+  private $table_user = 'user';
   private $kolom = array('Nama_Majalah','Kategori','Harga','Deskripsi_Majalah', 'Foto_Majalah', 'Edisi_Majalah');
   private $conn;
 
@@ -21,10 +22,9 @@ class Controllers_Majalah
 
   public function tambah_majalah($data_barang)
   {
-    session_start();
-    try {
 
-      $sql = 'INSERT INTO '.$this->table.'
+    try {
+      $sql = 'INSERT INTO '.$this->table_majalah. '
         (Nama_Majalah,Kategori,Harga,Deskripsi_Majalah, Foto_Majalah,Edisi_Majalah,Email)
         VALUES (? , ? , ? , ? , ? , ? , ?)';
 
@@ -61,7 +61,8 @@ class Controllers_Majalah
 
   public function tampil()
   {
-    $sql = 'SELECT * FROM '.$this->table;
+    // $sql = 'SELECT * FROM '.$this->table.' join "'.$table_user.'" on user.Email=majalah.Email';
+    $sql = 'SELECT * FROM user join majalah on user.Email= majalah.Email';
       try{
           $query = $this->conn->query($sql);
           return $query->fetchAll();
